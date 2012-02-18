@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/layouts/layout_empty.xhtml" >
+<ui:define name="Body">
+<h1>Shopping cart</h1>
+
+    <h:form>
+    	<h:messages />
+      	<h:inputHidden id="_flowExecutionKey" 
+             value="${flowExecutionKey}"/>
+	
+	<h:panelGrid border="0" columns="2" id="panel">
+		
+      <h:outputLabel value="Name: "></h:outputLabel>
+      <h:outputText style="width:100px;" id="name" value="#{cart.customer.name}"/>
+      
+      <h:outputLabel value="Address: "></h:outputLabel>
+      <h:outputText id="address" value="#{cart.customer.address}"/>
+      
+      <h:outputLabel value="Total amount: "></h:outputLabel>
+      <h:inputText id="total" value="${cart.total}"/>
+      
+    </h:panelGrid>
+	<br />
+	<br />
+			<h:outputText id="noHotelsText" value="No articles Found"
+				rendered="#{cart.rowCount == 0}" />
+			<h:dataTable id="articles" binding="#{shoppingFlowActions.articleTab}" value="#{articles}"
+				var="a" rendered="#{cart.rowCount > 0}">
+				<h:column style="width:100px;">
+					<f:facet name="header">Name
+					</f:facet>
+                      <h:outputText value="#{a.articleName}" />
+                    </h:column>
+				<h:column style="text-align:right;">
+					<f:facet name="header">Price</f:facet>
+                        #{a.price}
+                    </h:column>
+				<h:column >
+					<f:facet name="header">Quantity
+					</f:facet>
+                       <h:inputText dir="RTL" value="#{a.qty}"/>
+                    </h:column>
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandButton actionListener="#{shoppingFlowActions.updateArticleSelected}"
+					 	reRender="panel" value="Add to cart"
+						action="addArticle" />
+				</h:column>
+			</h:dataTable>
+		<br />
+		<br />
+		<h:panelGrid border="0" columns="2">
+			<h:commandButton style="width:113px" action="checkout" 
+             value="Checkout" />
+            <h:commandButton style="width:113px" action="cancel" 
+             value="Cancel" />
+         </h:panelGrid>
+ 	</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

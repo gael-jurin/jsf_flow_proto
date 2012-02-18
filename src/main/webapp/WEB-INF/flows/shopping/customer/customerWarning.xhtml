@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/layouts/layout_empty.xhtml" >
+<ui:define name="Body">
+<h1>Shopping Zone Warning</h1>
+	<h:form>
+		<h:messages />
+		<h2>Shopping not allowed</h2>
+		
+		<h:inputTextarea value="The address is outside of our delivery area."></h:inputTextarea>
+		
+		<h:panelGrid columns="2" id="panel">
+		<h:commandButton style="width:113px" id="c1" value="accept" action="accept" />
+		<h:commandButton style="width:113px" id="c2" value="cancel" action="cancel" />
+		</h:panelGrid>
+		
+</h:form>
+</ui:define>
+</ui:composition>
+</html>

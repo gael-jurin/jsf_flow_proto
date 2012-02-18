@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/layouts/layout_empty.xhtml">
+
+	<ui:define name="Body">
+		
+		<div style="padding: 15px 15px;">
+			<h:form prependId="false" >
+			
+			<table class="form">
+			<tr>
+				<td><h:outputLabel value="Identifiant: " for="j_username" /></td>
+				<td><h:inputText id="j_username" required="true" value="#{authenticationBean.username}" 
+						styleClass="textInput" /></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="Mot de passe " for="j_password" /></td>
+				<td><h:inputSecret id="j_password" required="true" value="#{authenticationBean.password}"
+						styleClass="textInput" /></td>
+			</tr>
+			</table>
+				 
+				<div class="buttonContainer">
+						<h:commandButton styleClass="styledButton" action="#{authenticationBean.onLogin}" 
+							value="Valider"  />
+				</div>
+					
+			</h:form>
+		</div>
+	</ui:define>
+	
+</ui:composition>

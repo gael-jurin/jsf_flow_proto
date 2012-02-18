@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	
+	
+	<var name="customer" class="com.proto.jsflow.view.CustomerBean" />
+	
+	<view-state id="welcome" view="welcome.xhtml">
+		<transition on="idEntered" to="lookupCustomer" />
+	</view-state>
+
+	<action-state id="lookupCustomer">
+		<evaluate result="customer"
+			expression="shoppingFlowActions.lookupCustomer(customer.phoneNumber)" />
+		<transition to="registerCustomer"
+			on-exception="com.proto.jsflow.exception.CustomerNotFoundException" />
+		<transition to="customerReady" />
+	</action-state>
+
+	<view-state id="registerCustomer" view="registerCustomer.xhtml" model="customer">
+		
+		<transition on="submit" to="checkCustomer" />
+		<transition on="cancel" to="cancel" />
+	</view-state>
+
+	<decision-state id="checkCustomer">
+		<if test="shoppingFlowActions.checkDeliveryArea(customer.zipCode)"
+			then="addCustomer" else="customerWarning" />
+	</decision-state>
+
+	<view-state id="customerWarning" popup="true" view="customerWarning.xhtml">
+		<transition on="accept" to="addCustomer" />
+	</view-state>
+
+	<action-state id="addCustomer">
+		<evaluate expression="shoppingFlowActions.addCustomer(customer)" />
+		<transition to="customerReady" />
+	</action-state>
+	
+	<end-state id="cancel" />
+	<end-state id="customerReady">
+		<output name="customer" />
+	</end-state>
+	
+	<global-transitions>
+		<transition on="cancel" to="cancel" />
+	</global-transitions>
+</flow>

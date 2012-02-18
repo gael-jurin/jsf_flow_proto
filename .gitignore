@@ -1,0 +1,7 @@
+*.aj
+target
+.classpath
+.project
+.settings
+log.roo
+src/test

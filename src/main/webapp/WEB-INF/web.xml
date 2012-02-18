@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    
+    <display-name>jsflow</display-name>
+    
+    <description>Roo generated jsflow application</description>
+
+    
+    <!-- Enable escaping of form submission contents -->
+    <context-param>
+        <param-name>defaultHtmlEscape</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:META-INF/spring/applicationContext.xml,
+        			classpath*:META-INF/spring/applicationContext-security.xml
+        </param-value>
+    </context-param>
+    
+    <!-- Creates the Spring Container shared by all Servlets and Filters -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- Spring Security Filter -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+    
+    
+    <!-- 
+		JSF 2 IMPLEMENTATION
+	-->
+	
+	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	
+	<!-- Enables special Facelets debug output during development -->
+  	<context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+   		<param-value>Development</param-value>
+  	</context-param>
+  	
+  	<!-- Causes Facelets to refresh templates during development -->
+  	<context-param>
+  		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+  		<param-value>1</param-value>
+  	</context-param>
+	
+  	<!-- Disables partial state saving -->
+  	<context-param>
+  		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+  		<param-value>false</param-value>
+  	</context-param>
+
+	<!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/faces-config.xml</param-value>
+        </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- Just here so the JSF implementation can initialize -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+
+	<!-- 
+		RICHFACES DECLARATIONS.
+	-->	   	
+	<context-param>
+	   <param-name>org.richfaces.SKIN</param-name>
+	   <param-value>emeraldTown</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+
+	<filter> 
+	    <display-name>RichFaces Filter</display-name> 
+	    <filter-name>richfaces</filter-name> 
+	    <filter-class>org.ajax4jsf.Filter</filter-class> 
+	</filter> 
+	
+	<filter-mapping> 
+	    <filter-name>richfaces</filter-name> 
+	    <servlet-name>flowservlet</servlet-name>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
+	    <dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+	<filter-name>MyFacesExtensionsFilter</filter-name>
+	<filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+	<init-param>
+		<param-name>uploadMaxFileSize</param-name>
+		<param-value>20m</param-value>
+	</init-param>
+	</filter>
+	
+	<filter-mapping>
+  	<filter-name>MyFacesExtensionsFilter</filter-name>
+  	<servlet-name>Faces Servlet</servlet-name>
+ 	</filter-mapping>
+ 	<filter-mapping>
+    <filter-name>MyFacesExtensionsFilter</filter-name>
+    <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
+	</filter-mapping>
+    
+<!--     Handles Spring requests -->
+    <servlet>
+        <servlet-name>flowservlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/webmvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>flowservlet</servlet-name>
+        <url-pattern>/flowprocess/*</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+    
+<!--     <error-page> -->
+<!--         <exception-type>java.lang.Exception</exception-type> -->
+<!--         <location>/uncaughtException</location> -->
+<!--     </error-page> -->
+    
+<!--     <error-page> -->
+<!--         <error-code>404</error-code> -->
+<!--         <location>/resourceNotFound</location> -->
+<!--     </error-page> -->
+
+	<welcome-file-list>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	
+</web-app>

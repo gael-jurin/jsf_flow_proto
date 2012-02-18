@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	<input name="cart" required="true" />
+	
+	<view-state id="showCart" view="showCart.xhtml">
+		<on-render>
+			<evaluate expression="shoppingFlowActions.loadArticles(cart)" result="viewScope.articles" result-type="dataModel"></evaluate>
+		</on-render>
+		<transition on="addArticle" to="addtoCart" />
+		<transition on="checkout" to="cartCreated" />
+		<transition on="cancel" to="cancel" />
+	</view-state>
+	
+	<action-state id="addtoCart">
+		<evaluate expression="shoppingFlowActions.saveCart(cart)" />
+		<transition to="showCart" />
+	</action-state>
+	
+	<end-state id="cancel" />
+	<end-state id="cartCreated" />
+</flow>

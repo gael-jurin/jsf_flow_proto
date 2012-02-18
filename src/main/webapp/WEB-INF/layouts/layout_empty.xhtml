@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<t:documentHead>
+		<t:stylesheet path="/styles/oncf_master.css" />
+	</t:documentHead>
+	
+	<body>
+<!-- 		<f:loadBundle basename="ma.oncf.achat.ressource.MessagesBundle" var="msgBundle" /> -->
+		<center>
+			<!-- Start Header -->
+			<ui:insert name="Header">
+				<ui:include src="/WEB-INF/views/facelets/headers/header_public.xhtml" />
+			</ui:insert>
+			<!-- End Header -->
+			<br />
+			<br />
+			<br />
+			<!-- Start Main Content -->
+			<t:div id="mainContent" styleClass="master_main_content_empty" forceId="true">
+			
+<!-- 			<a4j:region id="global"> -->
+					
+					
+					<div class="main_content_without_sider">
+						
+						<ui:insert name="Body">Page Body(not injected)</ui:insert>
+					</div>
+					 
+<!-- 			</a4j:region> -->
+			</t:div>
+			<!-- End Main Content -->
+			
+			<!-- Start Footer -->
+			<ui:insert name="Footer">
+				<ui:include src="/WEB-INF/views/facelets/footers/footer_public.xhtml" />
+			</ui:insert>
+			<!-- End Footer -->
+		</center>
+	</body>
+</html>

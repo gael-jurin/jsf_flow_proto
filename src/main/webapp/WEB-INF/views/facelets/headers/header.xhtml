@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<!-- Start Header -->
+	<div class="master_header" id="headerLayout">
+		<!-- Start Header Top -->
+		<div class="header_logo" align="left">
+			<img src="/oncf/images/logo_ocnf.gif" title="ONCF - PORTAIL ACHATS" />
+		</div>
+		<div class="header_shadow_sep">
+			<img src="/oncf/images/test.gif" />
+		</div>
+
+		<div class="header_auth">
+			<!-- Start Auth Bar -->
+			<div class="header_auth_right"></div>
+			<a4j:form>
+				<div class="header_auth_mid">
+					Bienvenue
+					<a class="header_auth_user">#{authenticationBean.nom}
+						#{authenticationBean.prenom} [#{authenticationBean.login}]</a>
+					<t:htmlTag value="span" visibleOnUserRole="ROLE_ADM" style="padding-left: 2px; padding-right: 3px;">
+						|
+					</t:htmlTag>
+					<a4j:commandLink styleClass="header_auth_link"
+						value="Administration" action="#{ajaxNavigation.goAdminPage}"
+						id="admin_link" rendered="#{securityBean.ableToRoleAdm}"
+						reRender="mainContent">
+					</a4j:commandLink>
+					<t:htmlTag value="span" style="padding-left: 2px; padding-right: 3px;">
+						|
+					</t:htmlTag>
+					<t:commandLink styleClass="header_auth_link" value="Déconnexion"
+						action="#{authenticationBean.logout}" />
+					<t:htmlTag value="span" style="padding-left: 2px; padding-right: 3px;">
+						|
+					</t:htmlTag>
+					<a4j:commandLink value="Options" styleClass="header_auth_link"
+						actionListener="#{ajaxNavigation.goUserSettings}" reRender="popupPanel" 
+						oncomplete="javascript:Richfaces.showModalPanel('popupPanel');return false;"/>
+				</div>
+			</a4j:form>
+			<div class="header_auth_left"></div>
+			<!-- End Auth Bar -->
+		</div>
+		<!-- End Header Top -->
+
+		<!-- Start Horizontal Nav Bar -->
+		<div class="header_nav">
+			<a4j:form id="mainMenu" style="float: left;">
+				<t:div styleClass="header_nav_button">
+					<a4j:commandLink value="Accueil"
+						action="#{ajaxNavigation.goAccueilPage}" id="acceuil_link"
+						reRender="mainContent" />
+				</t:div>
+				<div class="header_nav_sep"></div>
+				<t:div styleClass="header_nav_button" visibleOnUserRole="ROLE_MET">
+					<a4j:commandLink value="Métiers"
+						action="#{ajaxNavigation.goMetierPage}" reRender="mainContent" />
+				</t:div>
+				<div class="header_nav_sep"></div>
+			</a4j:form>
+
+			<div style="float: right; padding-top: 10px; padding-right: 5px;" >
+			<a4j:form id="rightMenu">
+
+				<t:outputText escape="false" visibleOnUserRole="ROLE_LIE.BI1"
+					value="&lt;a class='header_link' href='${urlBundle.BIUrl}'   target='_BLANK\'&gt; BI&lt;/a&gt;" />
+              <t:htmlTag rendered="#{securityBean.showSperatorBI}"  value="span">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+				
+				<a4j:commandLink styleClass="header_link" value="Marketing achat" action="#{ajaxNavigation.goManageMarketingAchatFiles}" 
+					reRender="main" rendered="#{securityBean.ableToRoleMetMarketingAchat or securityBean.ableToRoleMetMarketingAchatAdmin}" />
+				<t:htmlTag rendered="#{securityBean.ableToRoleMetMarketingAchat or securityBean.ableToRoleMetMarketingAchatAdmin}"  
+				value="span">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+				
+
+			<a4j:commandLink  reRender="main"  value="Portefeuille Achat"  styleClass="header_link"
+			 				  action="#{ajaxNavigation.goConsultationPortefeuillePage}" id="portefeuilachat_link"
+			 				  rendered="#{securityBean.ableToRoleAdmGestPortefeuilleViewPortfeuille}"/>
+				
+				<t:htmlTag value="span" rendered="#{securityBean.ableToRoleAdmGestPortefeuilleViewPortfeuille}"  >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+				
+				<t:outputText escape="false" visibleOnUserRole="ROLE_LIE.STO"
+					value="&lt;a class='header_link' href='${urlBundle.stockUrl}'   target='_BLANK\'&gt; Stock&lt;/a&gt;" />
+				
+				<t:htmlTag value="span"  rendered="#{securityBean.showSperatorSto}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<t:outputText escape="false" visibleOnUserRole=" ROLE_LIE.FIN"
+					value="&lt;a class='header_link' href='${urlBundle.financeUrl}'   target='_BLANK\'&gt; Finance&lt;/a&gt;" />
+
+				<t:htmlTag value="span"  rendered="#{securityBean.showSperatorFin}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<t:outputText escape="false" visibleOnUserRole="ROLE_LIE.FOR"
+					value="&lt;a class='header_link' href='${urlBundle.forumUrl}'   target='_BLANK\'&gt; Forum&lt;/a&gt;" />
+				<t:htmlTag value="span" rendered="#{securityBean.showSperatorFor}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<!--t:outputText escape="false"  visibleOnUserRole="ROLE_LIE.GED"
+					value="&lt;a class='header_link' href='${urlBundle.gedUrl}'   target='_BLANK\'&gt; GED&lt;/a&gt;" />
+				
+				<t:htmlTag rendered="#{securityBean.showSperatorGed}" value="span">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>-->
+				<t:outputText escape="false"  visibleOnUserRole="ROLE_LIE.AID"
+					value="&lt;a class='header_link' href='${urlBundle.aideUrl}'   target='_BLANK\'&gt; Aide&lt;/a&gt;" />
+				</a4j:form>
+			</div>
+		</div>
+		<!-- End Horizontal Nav Bar -->
+
+		<div class="header_nav_shadow"></div>
+	</div>
+	<!-- End Header -->
+</html>
+
+
+
+
+

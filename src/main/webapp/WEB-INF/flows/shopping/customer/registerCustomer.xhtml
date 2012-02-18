@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/layouts/layout_empty.xhtml" >
+<ui:define name="Body">
+<h1>Registration</h1>
+	<h:form >
+		<h:messages />
+		<h:panelGrid columns="2" id="panel">
+		
+      <h:inputHidden id="_flowExecutionKey" 
+             value="${flowExecutionKey}"/><h:inputHidden></h:inputHidden>
+      
+      <h:outputLabel value="Phone number: "></h:outputLabel>
+      <h:inputText id="phoneNumber" value="#{customer.phoneNumber}"/>
+      
+      <h:outputLabel value="Name: "></h:outputLabel>
+      <h:inputText id="name" value="#{customer.name}"/>
+      
+      <h:outputLabel value="Address: "></h:outputLabel>
+      <h:inputText id="address" value="#{customer.address}"/>
+      
+      <h:outputLabel value="City: "></h:outputLabel>
+      <h:inputText id="city" value="#{customer.city}"/>
+      
+      <h:outputLabel value="Zip Code: "></h:outputLabel>
+      <h:inputText id="zipCode" value="#{customer.zipCode}"/>
+      
+      </h:panelGrid>
+      
+      <h:commandButton style="width:113px" action="submit" value="Submit" />
+      <h:commandButton style="width:113px" action="cancel" value="Cancel" />
+    </h:form>
+</ui:define>
+</ui:composition>
+</html>

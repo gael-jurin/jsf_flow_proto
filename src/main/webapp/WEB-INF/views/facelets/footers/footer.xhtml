@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    
+    
+	<!-- Start Footer -->
+	<div class="master_footer">
+		<div style="float:left; padding-top:20px;">
+        	<a4j:commandLink styleClass="footer_link"  rendered="#{securityBean.ableToRoleLieAcc}"
+				value="Accueil" action="#"
+				onclick="clickLink('mainMenu:acceuil_link');"
+				reRender="mainContent"/>
+				
+				
+			 <t:htmlTag value="span"  rendered="#{securityBean.showSperatorAcc}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+			 
+			 <t:outputText escape="false" visibleOnUserRole="ROLE_LIE.BI1"
+					value="&lt;a class='footer_link' href='${urlBundle.BIUrl}'  target='_BLANK\'&gt; BI&lt;/a&gt;" />
+              <t:htmlTag rendered="#{securityBean.showSperatorBI}"  value="span">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+				
+				
+			<a4j:commandLink styleClass="footer_link" rendered="#{securityBean.ableToRoleLiePortAch}"
+				value="Portefeuille Achats" action="#"
+				onclick="clickLink('rightMenu:portefeuilachat_link');"
+				reRender="mainContent"/>		
+					
+				<t:htmlTag value="span" rendered="#{securityBean.showSperatorPortAch}"  >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+				
+				<t:outputText escape="false" visibleOnUserRole="ROLE_LIE.STO"
+					value="&lt;a class='footer_link' href='${urlBundle.stockUrl}'  target='_BLANK\'&gt; Stock&lt;/a&gt;" />
+				
+				<t:htmlTag value="span"  rendered="#{securityBean.showSperatorSto}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<t:outputText escape="false" visibleOnUserRole=" ROLE_LIE.FIN"
+					value="&lt;a class='footer_link' href='${urlBundle.financeUrl}'  target='_BLANK\'&gt; Finance&lt;/a&gt;" />
+
+				<t:htmlTag value="span"  rendered="#{securityBean.showSperatorFin}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<t:outputText escape="false" visibleOnUserRole="ROLE_LIE.FOR"
+					value="&lt;a class='footer_link' href='${urlBundle.forumUrl}'  target='_BLANK\'&gt; Forum&lt;/a&gt;" />
+				<t:htmlTag value="span" rendered="#{securityBean.showSperatorFor}" >&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</t:htmlTag>
+
+				<t:outputText escape="false"  visibleOnUserRole="ROLE_LIE.AID"
+					value="&lt;a class='footer_link' href='${urlBundle.aideUrl}'  target='_BLANK\'&gt; Aide&lt;/a&gt;" />
+			</div>
+	
+		<div style="float:right; padding-top:20px;"><a class="footer_copyright">|&nbsp;&nbsp;&nbsp;&nbsp;&copy;  2010 Copyright BULL - Tous droits réservés.</a></div>
+		<div style="float:right; padding-top:6px; margin-right:10px;"><img src="/oncf/images/footer_logo.gif" title="ONCF - PORTAIL ACHATS" /></div>    
+	</div>
+	<!-- End Footer -->
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow start-state="identifyCustomer" xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+	
+	<secured attributes="ROLE_USER"/>
+	
+	<var name="cart" class="com.proto.jsflow.view.CartBean" />
+	
+	<subflow-state id="identifyCustomer" subflow="shopping/customer">
+	<output name="customer" value="cart.customer" />
+	<transition on="customerReady" to="buildCart" />
+	</subflow-state>
+
+	<subflow-state id="buildCart" subflow="shopping/cart">
+		<input name="cart" value="cart" />
+		<transition on="cartCreated" to="takePayment" />
+	</subflow-state>
+
+	<subflow-state id="takePayment" subflow="shopping/payment">
+		<input name="cart" value="cart" />
+		<transition on="paymentTaken" to="thankCustomer" />
+	</subflow-state>
+	
+	<action-state id="saveCart">
+		<evaluate expression="shoppingFlowActions.saveCart(cart)" />
+		<transition to="thankCustomer" />
+	</action-state>
+
+	<view-state id="thankCustomer" view="thankCustomer.xhtml">
+		<transition to="endState" />
+	</view-state>
+
+	<end-state id="endState" />
+	<global-transitions>
+		<transition on="cancel" to="endState" />
+	</global-transitions>
+	
+</flow>

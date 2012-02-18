@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/layouts/layout_empty.xhtml" >
+<ui:define name="Body">
+<h1>Payment</h1>
+
+    <h:form id="paymentForm" >
+    	<h:messages />
+	<h2>Take Payment</h2>
+	
+	<h:inputHidden id="_flowExecutionKey" 
+	      value="${flowExecutionKey}"/>	      
+	
+	<br/><br/>
+	
+	<h:panelGrid columns="1">
+    
+    <h:selectOneRadio binding="#{shoppingFlowActions.payradio}" actionListener="#{shoppingFlowActions.updatePaymentType}" id="paymentType"
+     		value="#{shoppingFlowActions.paytype}" reRender="creditCardNumber" >
+        <f:selectItem id="item1" itemLabel="Cash (taken at delivery)" itemValue="CASH" />
+  		<f:selectItem id="item2" itemLabel="Check (taken at delivery)" itemValue="CHEQUE" />
+  		<f:selectItem id="item3" itemLabel="Credit Card" itemValue="CREDIT_CARD" />
+    </h:selectOneRadio>
+     
+	 <h:inputText id="creditCardNumber" value="#{paymentDetails.creditCardNumber}" 
+	  		rendered="#{shoppingFlowActions.showccn}"/>
+	</h:panelGrid>
+	
+	  <br/><br/>
+	  
+	  <h:panelGrid columns="2">
+	  		<h:commandButton action="paymentSubmitted" value="Submit"/>
+	  		<h:commandButton action="cancel" value="Cancel"/>
+	  </h:panelGrid>
+	  
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>
+
